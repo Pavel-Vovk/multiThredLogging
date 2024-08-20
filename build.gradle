@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.9.6'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.rest-assured:rest-assured:4.4.0'
+    implementation 'org.testng:testng:7.4.0'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    testImplementation 'io.qameta.allure:allure-testng:2.17.2'
+}
+
+task clearAllureResults(type: Delete) {
+    delete 'build/allure-results'
+}
+
+test {
+    useTestNG {
+        suites 'src/test/resources/testng.xml'
+    }
+    testLogging {
+        showStandardStreams = true
+        events "passed", "skipped", "failed"
+    }
+    systemProperty 'allure.results.directory', file('build/allure-results')
+    dependsOn 'clearAllureResults'
+}
+
+task copyHistoryToResults(type: Copy) {
+    from 'build/reports/allure-report/allureReport/history'
+    into 'build/allure-results/history'
+}
+
+tasks.named('allureReport').configure {
+    dependsOn 'copyHistoryToResults'
+}
+
+//tasks.named('clean').configure {
+//    delete file('build/allure-results')
+//}
+
+//task copyHistory(type: Copy) {
+//    from 'allure-history'
+//    into 'build/reports/allure-report/allureReport'
+//}
+//
+//tasks.named('allureReport').configure {
+//    dependsOn 'copyHistory'
+//    finalizedBy 'saveHistory'
+//}
+//
+//task saveHistory(type: Copy) {
+//    from 'build/reports/allure-report/allureReport/history'
+//    into 'allure-history'
+//}
+//
+//tasks.named('allureServe').configure {
+//    finalizedBy 'saveHistory'
+//}
+
+//Here is an example of how to do it, assuming that your project is configured to use allure-results and allure-report directories:
+//
+//Make sure you have the previous report generated in the allure-report directory.
+//
+//Remove the allure-results directory.
+//
+//        Run the tests.
+//
+//        Copy the allure-report/history subdirectory to allure-results/history.
+//
+//        Generate the new report.
