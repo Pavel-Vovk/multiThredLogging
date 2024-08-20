@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.client.HttpClient;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.AllureTestNg;
 import org.slf4j.Logger;
