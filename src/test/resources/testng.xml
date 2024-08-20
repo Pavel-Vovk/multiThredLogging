@@ -10,5 +10,10 @@
             <class name="com.example.APITestClient"/>
         </classes>
     </test>
+    <test name="API Tests Client with Headers">
+        <classes>
+            <class name="com.example.APITestClientWithHeadersAndStatusCode"/>
+        </classes>
+    </test>
 
 </suite>

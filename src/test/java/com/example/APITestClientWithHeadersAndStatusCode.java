@@ -37,10 +37,8 @@ public class APITestClientWithHeadersAndStatusCode {
     @Feature("API Tests with the external client with Headers and expected Code")
     public void testClient1() {
         logger.info("Start test API Client 1");
-        Map<String, String> headers = HeaderManager.getCustomHeaders(
-                Map.of("Some-Specific-Header", "Specific-Value")
-        );
-        httpClient.get("http://httpbin.org/get", headers, 200);
+        Map<String, String> headers = HeaderManager.getDefaultHeaders();
+        httpClient.get("http://httpbin.org/get", headers, 200, logger);
         logger.info("Completed test API Client Headers and expected Code 1");
     }
 
@@ -48,10 +46,8 @@ public class APITestClientWithHeadersAndStatusCode {
     @Feature("API Tests with the external client with Headers and expected Code")
     public void testClient2() {
         logger.info("Start test API Client 2");
-        Map<String, String> headers = HeaderManager.getCustomHeaders(
-                Map.of("Another-Specific-Header", "Another-Specific-Value")
-        );
-        httpClient.getWithLoggingAll("http://httpbin.org/ip", headers, 200);
+        Map<String, String> headers = HeaderManager.getDefaultHeaders();
+        httpClient.getWithLoggingAll("http://httpbin.org/ip", headers, 200, logger);
         logger.info("Completed test API Client Headers and expected Code 2");
     }
 }
