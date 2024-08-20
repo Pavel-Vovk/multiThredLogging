@@ -17,7 +17,7 @@ Ensure that the environment is set up with all necessary dependencies for TestNG
 
 ### Requirements
 
-- Java JDK 8 or newer
+- Java JDK 8
 - Gradle
 - TestNG
 - Logback
